@@ -51,6 +51,9 @@ const Item = styled.div`
   gap: 20px;
   cursor: pointer;
   padding: 7.5px 0;
+  &:hover {
+    background-color: ${({ theme }) => theme.soft};
+  }
 `;
 
 const Hr = styled.hr`
@@ -86,80 +89,82 @@ const Menu = ({ darkMode, setDarkMode }) => {
             <Img src={AydarTube} />
             AydarTube
           </Logo>
+        </Link>
 
-          <Item>
-            <HomeIcon />
-            Home
-          </Item>
-          <Item>
-            <ExploreIcon />
-            Explore
-          </Item>
-          <Item>
-            <SubscriptionsOutlinedIcon />
-            Subscription
-          </Item>
-          <Hr />
-          <Item>
-            <VideoLibraryOutlinedIcon />
-            Library
-          </Item>
-          <Item>
-            <HistoryOutlinedIcon />
-            History
-          </Item>
-          <Hr />
-          <Login>
-            Sign in to like videos, comment and subscribe
+        <Item>
+          <HomeIcon />
+          Home
+        </Item>
+        <Item>
+          <ExploreIcon />
+          Explore
+        </Item>
+        <Item>
+          <SubscriptionsOutlinedIcon />
+          Subscription
+        </Item>
+        <Hr />
+        <Item>
+          <VideoLibraryOutlinedIcon />
+          Library
+        </Item>
+        <Item>
+          <HistoryOutlinedIcon />
+          History
+        </Item>
+        <Hr />
+        <Login>
+          Sign in to like videos, comment and subscribe
+          <Link to="signin" style={{ textDecoration: "none" }}>
             <Button>
               <AccountCircleOutlinedIcon />
               Sign In
             </Button>
-          </Login>
-          <Hr />
-          <Title>BEST OF AYDARTUBE</Title>
-          <Item>
-            <LibraryMusicOutlinedIcon />
-            Music
-          </Item>
-          <Item>
-            <SportsBasketballOutlinedIcon />
-            Sport
-          </Item>
-          <Item>
-            <SportsEsportsOutlinedIcon />
-            Gaming
-          </Item>
-          <Item>
-            <MovieOutlinedIcon />
-            Movies
-          </Item>
-          <Item>
-            <ArticleOutlinedIcon />
-            News
-          </Item>
-          <Item>
-            <LiveTvOutlinedIcon />
-            Lives
-          </Item>
-          <Hr />
-          <Item>
-            <SettingsOutlinedIcon />
-            Settings
-          </Item>
-          <Item>
-            <FlagOutlinedIcon />
-            Report
-          </Item>
-          <Item>
-            <HelpOutlineOutlinedIcon />
-            Help
-          </Item>
-          <Item onClick={() => setDarkMode(!darkMode)}>
-            <SettingsBrightnessOutlinedIcon />
-            {darkMode ? "Light" : "Dark"} Mode
-          </Item>
-        </Link>
+          </Link>
+        </Login>
+        <Hr />
+        <Title>BEST OF AYDARTUBE</Title>
+        <Item>
+          <LibraryMusicOutlinedIcon />
+          Music
+        </Item>
+        <Item>
+          <SportsBasketballOutlinedIcon />
+          Sport
+        </Item>
+        <Item>
+          <SportsEsportsOutlinedIcon />
+          Gaming
+        </Item>
+        <Item>
+          <MovieOutlinedIcon />
+          Movies
+        </Item>
+        <Item>
+          <ArticleOutlinedIcon />
+          News
+        </Item>
+        <Item>
+          <LiveTvOutlinedIcon />
+          Lives
+        </Item>
+        <Hr />
+        <Item>
+          <SettingsOutlinedIcon />
+          Settings
+        </Item>
+        <Item>
+          <FlagOutlinedIcon />
+          Report
+        </Item>
+        <Item>
+          <HelpOutlineOutlinedIcon />
+          Help
+        </Item>
+        <Item onClick={() => setDarkMode(!darkMode)}>
+          <SettingsBrightnessOutlinedIcon />
+          {darkMode ? "Light" : "Dark"} Mode
+        </Item>
       </Wrapper>
     </Container>
   );
