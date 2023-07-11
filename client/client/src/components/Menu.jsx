@@ -20,10 +20,12 @@ import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightne
 
 const Container = styled.div`
   flex: 1;
-  background-color: #202020;
+  background-color: ${({ theme }) => theme.bg};
   height: 100vh;
-  color: white;
+  color: ${({ theme }) => theme.text};
   font-size: 14px;
+  position: sticky;
+  top: 0;
 `;
 
 const Wrapper = styled.div`
@@ -52,10 +54,29 @@ const Item = styled.div`
 
 const Hr = styled.hr`
   margin: 15px 0px;
-  border: 0.5px solid #373737;
+  border: 0.5px solid ${({ theme }) => theme.soft};
 `;
-
-const Menu = () => {
+const Login = styled.div``;
+const Button = styled.button`
+  padding: 5px 15px;
+  background-color: transparent;
+  color: #3ea6ff;
+  border: 1px solid #3ea6ff;
+  border-radius: 3px;
+  font-weight: 500px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+const Title = styled.h2`
+  font-size: 14px;
+  font-weight: 500;
+  color: #aaaaaa;
+  margin-bottom: 20px;
+`;
+const Menu = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
@@ -86,6 +107,15 @@ const Menu = () => {
           History
         </Item>
         <Hr />
+        <Login>
+          Sign in to like videos, comment and subscribe
+          <Button>
+            <AccountCircleOutlinedIcon />
+            Sign In
+          </Button>
+        </Login>
+        <Hr />
+        <Title>BEST OF AYDARTUBE</Title>
         <Item>
           <LibraryMusicOutlinedIcon />
           Music
@@ -123,7 +153,7 @@ const Menu = () => {
           <HelpOutlineOutlinedIcon />
           Help
         </Item>
-        <Item>
+        <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
           Light Mode
         </Item>
