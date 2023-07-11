@@ -17,6 +17,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
@@ -80,83 +81,85 @@ const Menu = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
-        <Logo>
-          <Img src={AydarTube} />
-          AydarTube
-        </Logo>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Logo>
+            <Img src={AydarTube} />
+            AydarTube
+          </Logo>
 
-        <Item>
-          <HomeIcon />
-          Home
-        </Item>
-        <Item>
-          <ExploreIcon />
-          Explore
-        </Item>
-        <Item>
-          <SubscriptionsOutlinedIcon />
-          Subscription
-        </Item>
-        <Hr />
-        <Item>
-          <VideoLibraryOutlinedIcon />
-          Library
-        </Item>
-        <Item>
-          <HistoryOutlinedIcon />
-          History
-        </Item>
-        <Hr />
-        <Login>
-          Sign in to like videos, comment and subscribe
-          <Button>
-            <AccountCircleOutlinedIcon />
-            Sign In
-          </Button>
-        </Login>
-        <Hr />
-        <Title>BEST OF AYDARTUBE</Title>
-        <Item>
-          <LibraryMusicOutlinedIcon />
-          Music
-        </Item>
-        <Item>
-          <SportsBasketballOutlinedIcon />
-          Sport
-        </Item>
-        <Item>
-          <SportsEsportsOutlinedIcon />
-          Gaming
-        </Item>
-        <Item>
-          <MovieOutlinedIcon />
-          Movies
-        </Item>
-        <Item>
-          <ArticleOutlinedIcon />
-          News
-        </Item>
-        <Item>
-          <LiveTvOutlinedIcon />
-          Lives
-        </Item>
-        <Hr />
-        <Item>
-          <SettingsOutlinedIcon />
-          Settings
-        </Item>
-        <Item>
-          <FlagOutlinedIcon />
-          Report
-        </Item>
-        <Item>
-          <HelpOutlineOutlinedIcon />
-          Help
-        </Item>
-        <Item onClick={() => setDarkMode(!darkMode)}>
-          <SettingsBrightnessOutlinedIcon />
-          Light Mode
-        </Item>
+          <Item>
+            <HomeIcon />
+            Home
+          </Item>
+          <Item>
+            <ExploreIcon />
+            Explore
+          </Item>
+          <Item>
+            <SubscriptionsOutlinedIcon />
+            Subscription
+          </Item>
+          <Hr />
+          <Item>
+            <VideoLibraryOutlinedIcon />
+            Library
+          </Item>
+          <Item>
+            <HistoryOutlinedIcon />
+            History
+          </Item>
+          <Hr />
+          <Login>
+            Sign in to like videos, comment and subscribe
+            <Button>
+              <AccountCircleOutlinedIcon />
+              Sign In
+            </Button>
+          </Login>
+          <Hr />
+          <Title>BEST OF AYDARTUBE</Title>
+          <Item>
+            <LibraryMusicOutlinedIcon />
+            Music
+          </Item>
+          <Item>
+            <SportsBasketballOutlinedIcon />
+            Sport
+          </Item>
+          <Item>
+            <SportsEsportsOutlinedIcon />
+            Gaming
+          </Item>
+          <Item>
+            <MovieOutlinedIcon />
+            Movies
+          </Item>
+          <Item>
+            <ArticleOutlinedIcon />
+            News
+          </Item>
+          <Item>
+            <LiveTvOutlinedIcon />
+            Lives
+          </Item>
+          <Hr />
+          <Item>
+            <SettingsOutlinedIcon />
+            Settings
+          </Item>
+          <Item>
+            <FlagOutlinedIcon />
+            Report
+          </Item>
+          <Item>
+            <HelpOutlineOutlinedIcon />
+            Help
+          </Item>
+          <Item onClick={() => setDarkMode(!darkMode)}>
+            <SettingsBrightnessOutlinedIcon />
+            {darkMode ? "Light" : "Dark"} Mode
+          </Item>
+        </Link>
       </Wrapper>
     </Container>
   );
