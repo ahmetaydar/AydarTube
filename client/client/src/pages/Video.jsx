@@ -3,18 +3,18 @@ import styled from "styled-components";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Comments from "../components/Comments";
 import Card from "../components/Card";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { dislike, fetchSuccess, like } from "../redux/videoSlice";
-import { subscription } from "../redux/userSlice";
 import { format } from "timeago.js";
+import { subscription } from "../redux/userSlice";
+import Recommendation from "../components/Recommendation";
 
 const Container = styled.div`
   display: flex;
@@ -62,9 +62,6 @@ const Hr = styled.hr`
   border: 0.5px solid ${({ theme }) => theme.soft};
 `;
 
-const Recommendation = styled.div`
-  flex: 2;
-`;
 const Channel = styled.div`
   display: flex;
   justify-content: space-between;
@@ -122,10 +119,10 @@ const VideoFrame = styled.video`
 const Video = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
-
   const dispatch = useDispatch();
 
   const path = useLocation().pathname.split("/")[2];
+
   const [channel, setChannel] = useState({});
 
   useEffect(() => {
@@ -135,12 +132,10 @@ const Video = () => {
         const channelRes = await axios.get(
           `/users/find/${videoRes.data.userId}`
         );
-
         setChannel(channelRes.data);
         dispatch(fetchSuccess(videoRes.data));
-      } catch (error) {}
+      } catch (err) {}
     };
-
     fetchData();
   }, [path, dispatch]);
 
@@ -160,26 +155,30 @@ const Video = () => {
     dispatch(subscription(channel._id));
   };
 
+  //TODO: DELETE VIDEO FUNCTIONALITY
+
   return (
     <Container>
       <Content>
-        <VideoFrame src={currentVideo.videoUrl}></VideoFrame>
-        <Title>{currentVideo?.title}</Title>
+        <VideoWrapper>
+          <VideoFrame src={currentVideo.videoUrl} controls />
+        </VideoWrapper>
+        <Title>{currentVideo.title}</Title>
         <Details>
           <Info>
-            {currentVideo?.views} views • {format(currentVideo?.createdAt)}
+            {currentVideo.views} views • {format(currentVideo.createdAt)}
           </Info>
           <Buttons>
             <Button onClick={handleLike}>
-              {currentVideo?.likes?.includes(currentUser._id) ? (
+              {currentVideo.likes?.includes(currentUser?._id) ? (
                 <ThumbUpIcon />
               ) : (
                 <ThumbUpOutlinedIcon />
               )}{" "}
-              {currentVideo?.likes?.length}
+              {currentVideo.likes?.length}
             </Button>
             <Button onClick={handleDislike}>
-              {currentVideo?.dislikes?.includes(currentUser._id) ? (
+              {currentVideo.dislikes?.includes(currentUser?._id) ? (
                 <ThumbDownIcon />
               ) : (
                 <ThumbDownOffAltOutlinedIcon />
@@ -203,34 +202,19 @@ const Video = () => {
               <ChannelCounter>
                 {channel?.subscribers} subscribers
               </ChannelCounter>
-              <Description>{currentVideo?.description}</Description>
+              <Description>{currentVideo.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe onClick={handleSub}>
-            {" "}
-            {currentUser.subscribedUsers?.includes(channel._id)
+            {currentUser.subscribedUsers?.includes(channel?._id)
               ? "SUBSCRIBED"
               : "SUBSCRIBE"}
           </Subscribe>
         </Channel>
         <Hr />
-        <Comments videoId={currentVideo?._id} />
+        <Comments videoId={currentVideo._id} />
       </Content>
-      {/* <Recommendation>
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-      </Recommendation> */}
+      <Recommendation tags={currentVideo.tags} />
     </Container>
   );
 };

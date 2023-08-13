@@ -1,30 +1,31 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
 import axios from "axios";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
-
+import { async } from "@firebase/util";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 56px);
-  color: ${({ theme }) => theme.textSoft};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-
   background-color: ${({ theme }) => theme.bgLighter};
-  padding: 20px 50px;
   border: 1px solid ${({ theme }) => theme.soft};
+  padding: 20px 50px;
   gap: 10px;
 `;
+
 const Title = styled.h1`
   font-size: 24px;
 `;
@@ -68,21 +69,20 @@ const Link = styled.span`
   margin-left: 30px;
 `;
 
-const Signin = () => {
+const SignIn = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/auth/signin", {
-        name,
-        password,
-      });
+      const res = await axios.post("/auth/signin", { name, password });
       dispatch(loginSuccess(res.data));
+      navigate("/");
     } catch (err) {
       dispatch(loginFailure());
     }
@@ -99,7 +99,9 @@ const Signin = () => {
             img: result.user.photoURL,
           })
           .then((res) => {
+            console.log(res);
             dispatch(loginSuccess(res.data));
+            navigate("/");
           });
       })
       .catch((error) => {
@@ -107,11 +109,13 @@ const Signin = () => {
       });
   };
 
+  //TODO: REGISTER FUNCTIONALITY
+
   return (
     <Container>
       <Wrapper>
-        <Title>Sign In</Title>
-        <SubTitle>to continue to AydarTube</SubTitle>
+        <Title>Sign in</Title>
+        <SubTitle>to continue to LamaTube</SubTitle>
         <Input
           placeholder="username"
           onChange={(e) => setName(e.target.value)}
@@ -125,12 +129,11 @@ const Signin = () => {
         <Title>or</Title>
         <Button onClick={signInWithGoogle}>Signin with Google</Button>
         <Title>or</Title>
-
         <Input
           placeholder="username"
           onChange={(e) => setName(e.target.value)}
         />
-        <Input placeholder="email" onChange={(e) => setName(e.target.value)} />
+        <Input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
         <Input
           type="password"
           placeholder="password"
@@ -150,4 +153,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;
